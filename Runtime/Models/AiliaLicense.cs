@@ -116,6 +116,7 @@ public class AiliaLicense
         #endif
     #endif
 #endif
+#if UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN || UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX || UNITY_EDITOR_LINUX || UNITY_STANDALONE_LINUX
         string licFile = Path.Combine(licFolder, "AILIA.lic");
 
         userData = CheckLicense(licFile);
@@ -136,6 +137,7 @@ public class AiliaLicense
         {
             DisplayWarning();
         }
+#endif
     }
 }
 } // namespace ailia
