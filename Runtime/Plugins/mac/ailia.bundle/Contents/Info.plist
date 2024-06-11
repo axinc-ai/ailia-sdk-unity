@@ -7,7 +7,7 @@
 	<key>CFBundleExecutable</key>
 	<string>ailia</string>
 	<key>CFBundleGetInfoString</key>
-	<string>1.3-r4277313a9(C)2018 - 2024 AXELL CORPORATION</string>
+	<string>1.4-r3529ca5df(C)2018 - 2024 AXELL CORPORATION</string>
 	<key>CFBundleIconFile</key>
 	<string></string>
 	<key>CFBundleIdentifier</key>
@@ -15,7 +15,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleLongVersionString</key>
-	<string>1.3.0.1685-r4277313a9</string>
+	<string>1.4.0.1789-r3529ca5df</string>
 	<key>CFBundleName</key>
 	<string>ailia</string>
 	<key>CFBundlePackageType</key>
