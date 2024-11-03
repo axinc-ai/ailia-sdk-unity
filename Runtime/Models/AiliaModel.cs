@@ -384,8 +384,6 @@ public class AiliaModel : IDisposable
     */
     public virtual bool OpenFile(string prototxt_path, string model_path)
     {
-        AiliaLicense.CheckAndDownloadLicense();
-
         Close();
 
         int status = Status = Ailia.ailiaCreate(ref ailia, env_id, Ailia.AILIA_MULTITHREAD_AUTO);
@@ -479,8 +477,6 @@ public class AiliaModel : IDisposable
     */
     public virtual bool OpenMem(byte[] prototxt_buf, byte[] model_buf)
     {
-        AiliaLicense.CheckAndDownloadLicense();
-
         Close();
 
         if (model_buf == null || model_buf.Length == 0 || (prototxt_buf != null && prototxt_buf.Length == 0))
@@ -586,8 +582,6 @@ public class AiliaModel : IDisposable
 
     public virtual bool OpenEx(Ailia.ailiaFileCallback callback, IntPtr arg1, IntPtr arg2)
     {
-        AiliaLicense.CheckAndDownloadLicense();
-
         Close();
 
         int status = Status = Ailia.ailiaCreate(ref ailia, env_id, Ailia.AILIA_MULTITHREAD_AUTO);
