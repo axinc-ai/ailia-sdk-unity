@@ -96,7 +96,9 @@ public class Ailia
     * \~english
     * Unsupported Networks
     */
-    public const Int32  AILIA_STATUS_UNSUPPORT_NET           =(  -9);
+    public const Int32  AILIA_STATUS_UNSUPPORTED_NET         =(  -9);
+    [Obsolete("AILIA_STATUS_UNSUPPORT_NET is deprecated. Use AILIA_STATUS_UNSUPPORTED_NET instead.")]
+    public const Int32  AILIA_STATUS_UNSUPPORT_NET           =AILIA_STATUS_UNSUPPORTED_NET;
     /**
     * \~japanese
     * レイヤーの重み、入力形状などが不正
@@ -128,7 +130,9 @@ public class Ailia
     * \~english
     * Given a layer parameter not yet supported by the GPU
     */
-    public const Int32  AILIA_STATUS_GPU_UNSUPPORT_LAYER     =( -13);
+    public const Int32  AILIA_STATUS_GPU_UNSUPPORTED_LAYER    =( -13);
+    [Obsolete("AILIA_STATUS_GPU_UNSUPPORT_LAYER is deprecated. Use AILIA_STATUS_GPU_UNSUPPORTED_LAYER instead.")]
+    public const Int32  AILIA_STATUS_GPU_UNSUPPORT_LAYER      =AILIA_STATUS_GPU_UNSUPPORTED_LAYER;
     /**
     * \~japanese
     * GPU上での処理中にエラー
@@ -1344,7 +1348,7 @@ public class Ailia
     /**
     * \~japanese
     * @brief 計算環境の一覧を取得します
-    * @param env          環境情報の格納先(AILIANetworkインスタンスを破棄するまで有効)
+    * @param env          環境情報の格納先(ライブラリを解放するまで有効)
     * @param env_idx      環境情報のインデックス(0~ ailiaGetEnvironmentCount() -1)
     * @param version      AILIA_ENVIRONMENT_VERSION
     * @return
@@ -1359,7 +1363,7 @@ public class Ailia
     *
     * \~japanese
     * @brief   Get a list of computation environments
-    * @param env        Where environment information is stored (valid until AILIANetwork instance is destroyed)
+    * @param env        Where environment information is stored (Valid until the library is released)
     * @param env_idx    Index of environment information (0~ ailiaGetEnvironmentCount() -1)
     * @param version    AILIA_ENVIRONMENT_VERSION
     * @return
@@ -1379,7 +1383,7 @@ public class Ailia
     * \~japanese
     * @brief 選択された計算環境を取得します
     * @param net          ネットワークオブジェクトポインタ
-    * @param env          計算環境情報の格納先(AILIANetworkインスタンスを破棄するまで有効)
+    * @param env          計算環境情報の格納先(ライブラリを解放するまで有効)
     * @param version      AILIA_ENVIRONMENT_VERSION
     * @return
     *   成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
@@ -1387,7 +1391,7 @@ public class Ailia
     * \~english
     * @brief Get the selected computing environment
     * @param net          Network object pointer
-    * @param env          Where computation environment information is stored (valid until AILIANetwork instance is destroyed)
+    * @param env          Where computation environment information is stored (Valid until the library is released)
     * @param version      AILIA_ENVIRONMENT_VERSION
     * @return
     *    If successful, return \ref AILIA_STATUS_SUCCESS, otherwise return error code.
