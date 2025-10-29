@@ -4,7 +4,7 @@
 * @brief AILIA Unity Plugin PoseEstimator Model Class
 * @author AXELL Corporation
 * @date  November 22, 2021
-* 
+*
 * \~english
 * @file
 * @brief AILIA Unity Plugin PoseEstimator Model Class
@@ -34,7 +34,9 @@ public class AiliaPoseEstimatorModel : AiliaModel{
     *   成功した場合 true を返す。
     * @details
     *   モデルのアルゴリズムを指定します。
-    *   　
+    * @remarks
+    *   Open系API呼び出し後の呼び出しは無効です(falseを返却します)
+    *
     * \~english
     * @brief   Model setting.
     * @param set_algorithm   Algorithm
@@ -42,8 +44,15 @@ public class AiliaPoseEstimatorModel : AiliaModel{
     *   Returns true on success.
     * @details
     *   Specifies the algorithm of the model.
+    * @remarks
+    *   This method will no effect (always retun false) after call OpenXXX Method.
     */
     public bool Settings(uint set_algorithm){
+        if (ailia_pose_estimator != IntPtr.Zero)
+        {
+            Debug.Assert(false, "Ailia Pose Estimator instance is already initialized.");
+            return false;
+        }
         algorithm=set_algorithm;
         return true;
     }
@@ -56,9 +65,9 @@ public class AiliaPoseEstimatorModel : AiliaModel{
     * @param model_path   protobuf/onnxファイルのパス名(MBSC or UTF16)
     * @return
     *   成功した場合は ture を、失敗した場合は false を返す。
-    * @details        
+    * @details
     *   モデルファイルからネットワークオブジェクトを作成します。
-    * 
+    *
     * \~english
     * @brief   Create a network object from a model file.
     * @param prototxt     Path name of the prototxt file (MBSC or UTF16)
@@ -91,7 +100,7 @@ public class AiliaPoseEstimatorModel : AiliaModel{
     *   成功した場合は ture を、失敗した場合は false を返す。
     * @details
     *   ファイルコールバックからネットワークオブジェクトを作成します。
-    *   
+    *
     * \~english
     * @brief   Creates a network object from a file callback.
     * @param callback   User-defined file access callback function structure
@@ -118,13 +127,13 @@ public class AiliaPoseEstimatorModel : AiliaModel{
     /**
     * \~japanese
     * @brief メモリからネットワークオブジェクトを作成します。
-    * @param prototxt     prototxtファイルのデータへのポインタ 
+    * @param prototxt     prototxtファイルのデータへのポインタ
     * @param model_path   protobuf/onnxファイルのデータへのポインタ
     * @return
     *   成功した場合は ture を、失敗した場合は false を返す。
-    * @details        
+    * @details
     *   メモリからネットワークオブジェクトを作成します。
-    * 
+    *
     * \~english
     * @brief   Creates network objects from memory.
     * @param prototxt     Pointer to data in prototxt file
@@ -151,14 +160,14 @@ public class AiliaPoseEstimatorModel : AiliaModel{
     * @brief 骨格検出インスタンスを作成します。
     * @return
     *   成功した場合は true を、失敗した場合は false を返す。
-    * @details        
+    * @details
     *   骨格検出インスタンスを作成します。
-    * 
+    *
     * \~english
     * @brief   Create a pose estimation instance.
     * @return
     *   Returns true on success, false on failure.
-    * @details        
+    * @details
     *  Create a pose estimation instance.
     */
     private bool OpenPoseEstimator(){
@@ -180,15 +189,15 @@ public class AiliaPoseEstimatorModel : AiliaModel{
     * @param threshold   検出閾値 0.0以上1.0以下の値で、値が小さいほど検出しやすくなります。
     * @return
     *   成功した場合は true を、失敗した場合は false を返す。
-    * @details        
+    * @details
     *   検出閾値を設定します。
-    * 
+    *
     * \~english
     * @brief   Sets the detection threshold.
     * @param threshold   Detection threshold A value between 0.0 and 1.0; the smaller the value, the easier it is to detect.
     * @return
     *   Returns true on success, false on failure.
-    * @details        
+    * @details
     *   Set the detection threshold.
     */
     public bool SetThreshold(float threshold){
@@ -213,7 +222,7 @@ public class AiliaPoseEstimatorModel : AiliaModel{
     *   検出結果のリスト
     * @details
     *   画像から骨格検出を行い、検出結果をリストで返します。
-    * 
+    *
     * \~english
     * @brief   Skeletal detection is performed from images.
     * @param image             Image to be detected
@@ -239,7 +248,7 @@ public class AiliaPoseEstimatorModel : AiliaModel{
     *   検出結果のリスト
     * @details
     *   画像から骨格検出を行い、検出結果をリストで返します。
-    * 
+    *
     * \~english
     * @brief   Skeletal detection is performed from an bottom-top image.
     * @param image             Image to be detected
@@ -260,18 +269,18 @@ public class AiliaPoseEstimatorModel : AiliaModel{
     * @param image               検出対象画像
     * @param image_width         画像幅
     * @param image_height        画像高さ
-    * @param foramt              画像形式 (AILIA_IMAGE_FORMAT_*)            
+    * @param foramt              画像形式 (AILIA_IMAGE_FORMAT_*)
     * @return
     *   検出結果のリスト
     * @details
     *   画像から骨格検出を行い、検出結果をリストで返します。
-    * 
+    *
     * \~english
     * @brief   Performs skeletal detection from the image and displays the results.
     * @param image             Image to be detected
     * @param image_width       Image width
     * @param image_height      Image height
-    * @param foramt            Image Format (AILIA_IMAGE_FORMAT_*)            
+    * @param foramt            Image Format (AILIA_IMAGE_FORMAT_*)
     * @return
     *   List of detection results
     * @details
@@ -336,7 +345,7 @@ public class AiliaPoseEstimatorModel : AiliaModel{
     *   検出結果のリスト
     * @details
     *   画像から上半身の骨格検出を行い、検出結果をリストで返します。
-    * 
+    *
     * \~english
     * @brief   Detection is performed from the image.
     * @param image             Image to be detected
@@ -363,7 +372,7 @@ public class AiliaPoseEstimatorModel : AiliaModel{
     *   検出結果のリスト
     * @details
     *   画像から上半身骨格検出を行い、検出結果をリストで返します。
-    * 
+    *
     * \~english
     * @brief   Detection is performed from an upside-down image.
     * @param image             Image to be detected
@@ -390,7 +399,7 @@ public class AiliaPoseEstimatorModel : AiliaModel{
     *   検出結果のリスト
    * @details
    *    画像から上半身骨格検出を行い、検出結果をリストで返します。
-   * 
+   *
    * \~english
    * @brief   Performs detection from the image and displays the results.
    * @param image             Image to be detected
@@ -399,9 +408,9 @@ public class AiliaPoseEstimatorModel : AiliaModel{
    * @param foramt            Image format (AILIA_IMAGE_FORMAT_*)
    * @return
     *   List of detection results
-   * @details      
+   * @details
    *    Performs upper body skeleton detection from an image and returns a list of detection results.
-   */  
+   */
     private List<AiliaPoseEstimator.AILIAPoseEstimatorObjectUpPose> ComputeUpPoseFromImageWithFormat(Color32[] image, int image_width, int image_height, uint format)
     {
         if (ailia_pose_estimator == IntPtr.Zero)
@@ -474,7 +483,7 @@ public class AiliaPoseEstimatorModel : AiliaModel{
    *   検出結果のリスト
    * @details
    *   画像から顔特徴点検出を行い結果をリストで返します。
-   * 
+   *
    * \~english
    * @brief   Performs facial feature point detection from images.
    * @param image             Image to be detected
@@ -500,7 +509,7 @@ public class AiliaPoseEstimatorModel : AiliaModel{
    *   検出結果のリスト
    * @details
    *   画像から顔特徴点検出を行い結果をリストで返します。
-   * 
+   *
    * \~english
    * @brief   Detects facial feature points from bottom-top images.
    * @param image             Image to be detected
@@ -526,7 +535,7 @@ public class AiliaPoseEstimatorModel : AiliaModel{
     *   検出結果のリスト
     * @details
     *   画像から顔特徴点検出を行い結果をリストで返します。
-    * 
+    *
     * \~english
     * @brief   Performs facial feature point detection from an image and displays the results.
     * @param image             image to be detected
@@ -595,7 +604,7 @@ public class AiliaPoseEstimatorModel : AiliaModel{
     *   検出結果のリスト
     * @details
     *   画像から手の検出を行い結果をリストで返します。
-    *   
+    *
     * \~english
     * @brief   Detects hands from an image.
     * @param image             Image to be detected
@@ -621,7 +630,7 @@ public class AiliaPoseEstimatorModel : AiliaModel{
     *   検出結果のリスト
     * @details
     *   画像から手の検出を行い結果をリストで返します。
-    * 
+    *
     * \~english
     * @brief   Detects hands from an bottom-top image.
     * @param image             Image to be detected
@@ -645,9 +654,9 @@ public class AiliaPoseEstimatorModel : AiliaModel{
     * @param foramt            画像形式 (AILIA_IMAGE_FORMAT_*)
     * @return
     *   検出結果のリスト
-    * @details      
+    * @details
     *   画像から手の検出を行い結果をリストで返します。
-    * 
+    *
     * \~english
     * @brief Performs hand detection from an image and returns the result.
     * @param image             Image to be detected
@@ -656,7 +665,7 @@ public class AiliaPoseEstimatorModel : AiliaModel{
     * @param foramt            Image format (AILIA_IMAGE_FORMAT_*)
     * @return
     *   List of detection results
-    * @details      
+    * @details
     *   Detects hands from an image and returns a list of results.
     */
     private List<AiliaPoseEstimator.AILIAPoseEstimatorObjectHand> ComputeHandFromImageWithFormat(Color32 [] image,int image_width,int image_height,uint format){
@@ -711,14 +720,14 @@ public class AiliaPoseEstimatorModel : AiliaModel{
     * @brief 検出オブジェクトを破棄します。
     * @return
     *   なし。
-    * @details        
+    * @details
     *   骨格検出オブジェクトを破棄します。
-    * 
+    *
     * \~english
     * @brief   Destroy the detection object.
     * @return
     *   Return nothing.
-    * @details        
+    * @details
     *   Destroys the detection object.
     */
     public override void Close(){
@@ -732,7 +741,7 @@ public class AiliaPoseEstimatorModel : AiliaModel{
     /**
     * \~japanese
     * @brief リソースを解放します。
-    *   
+    *
     *  \~english
     * @brief   Release resources.
     */

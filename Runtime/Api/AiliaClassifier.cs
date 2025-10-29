@@ -4,7 +4,7 @@
 * @brief AILIA Unity Plugin Native Interface
 * @copyright 2018-2021 AXELL Corporation
 * @date July 28, 2021
-* 
+*
 * \~english
 * @file
 * @brief AILIA Unity Plugin Native Interface
@@ -56,7 +56,7 @@ public class AiliaClassifier
     *   成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
     * @details
     *   識別オブジェクトを作成します。
-    *   
+    *
     * \~english
     * @brief   Create an identification object.
     * @param classifier   Pointer to identification object pointer
@@ -76,7 +76,7 @@ public class AiliaClassifier
     * \~japanese
     * @brief 識別オブジェクトを破棄します。
     * @param classifier 識別オブジェクトポインタ
-    * 
+    *
     * \~english
     * @brief   Destroy the identification object.
     * @param classifier    Distinguished object pointer
@@ -96,7 +96,7 @@ public class AiliaClassifier
     * @param max_class_count             認識結果の最大個数
     * @return
     *   成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-    * 
+    *
     * \~english
     * @brief   Object identification.
     * @param classifier                  Distinguished object pointer
@@ -119,7 +119,7 @@ public class AiliaClassifier
     * @param cls_count  クラス数
     * @return
     *   成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-    * 
+    *
     * \~english
     * @brief   Get the number of recognition results.
     * @param classifier   Distinguished object pointer
@@ -142,7 +142,7 @@ public class AiliaClassifier
     * @details
     *    ailiaPredict() を一度も実行していない場合は \ref AILIA_STATUS_INVALID_STATE が返ります。
     *    認識結果は確率順でソートされます。
-    * 
+    *
     * \~english
     * @brief   Retrieve recognition results.
     * @param classifier   Distinguished object pointer

@@ -43,6 +43,8 @@ public class AiliaModel : IDisposable
     * @details
     *   簡易的に環境種別から計算環境を選択します。
     *   明示的に計算環境を指定する場合は、GetEnvironmentCount()、GetEnvironment()、SelectEnvironment()を使用してください。
+    * @remarks
+    *   Open系API呼び出し後の呼び出しは無効です(falseを返却します)
     *
     * \~english
     * @brief Selects the specified type of calculation environment.
@@ -52,6 +54,8 @@ public class AiliaModel : IDisposable
     * @details
     *   Simply select the calculation environment from the environment type.
     *   To explicitly specify the computing environment, use GetEnvironmentCount(), GetEnvironment(), and SelectEnvironment().
+    * @remarks
+    *   This method will no effect (always retun false) after call OpenXXX Method.
     */
     public bool Environment(int type)
     {
@@ -182,6 +186,8 @@ public class AiliaModel : IDisposable
     *   成功した場合は true 、失敗した場合は false を返す。
     * @details
     *   指定したインデックスの計算環境を推論環境として選択します。
+    * @remarks
+    *   Open系API呼び出し後の呼び出しは無効です(falseを返却します)
     *
     * \~english
     * @brief Select the calculation environment.
@@ -190,12 +196,19 @@ public class AiliaModel : IDisposable
     *   Returns true on success, false on failure.
     * @details
     *   Selects the computing environment for the specified index as the inference environment.
+    * @remarks
+    *   This method will no effect (always retun false) after call OpenXXX Method.
     */
     public bool SelectEnvironment(int idx)
     {
         Ailia.AILIAEnvironment env = GetEnvironment(idx);
         if (env == null)
         {
+            return false;
+        }
+        if (ailia != IntPtr.Zero)
+        {
+            Debug.Assert(false, "Ailia instance is already initialized.");
             return false;
         }
         env_id = env.id;
@@ -323,40 +336,64 @@ public class AiliaModel : IDisposable
     *  @brief メモリモードを設定します
     *  @param set_memory_mode   メモリモード(論理和で複数指定可) AILIA_MEMORY_XXX (デフォルト: \ref AILIA_MEMORY_REDUCE_CONSTANT )
     *  @return
-    *    なし
+    *    成功した場合は true 、失敗した場合は false を返す。
     *  @details
     *     メモリの使用方針の設定を変更します。 \ref AILIA_MEMORY_NO_OPTIMIZATION 以外を指定した場合は、
     *   推論時に確保する中間バッファーを開放するため、推論時のメモリ使用量を削減することができます。
+    * @remarks
+    *   Open系API呼び出し後の呼び出しは無効です(falseを返却します)
     *
     *  \~english
     *  @brief   Sets the memory mode
     *  @param set_memory_mode   Memory mode (multiple specifiable by logical. AILIA_MEMORY_XXX (default: \ref AILIA_MEMORY_REDUCE_CONSTANT )
     *  @return
-    *    no return value
+    *     Returns true on success, false on failure.
     *  @details
     *    Changes the memory usage policy setting;
     *    if anything other than  \ref AILIA_MEMORY_NO_OPTIMIZATION is specified,
     *    the intermediate buffer allocated during inference is released, thus reducing the amount of memory used during inference.
+    * @remarks
+    *   This method will no effect (always retun false) after call OpenXXX Method.
     */
-    public void SetMemoryMode(uint set_memory_mode)
+    public bool SetMemoryMode(uint set_memory_mode)
     {
+        if (ailia != IntPtr.Zero)
+        {
+            Debug.Assert(false, "Ailia instance is already initialized.");
+            return false;
+        }
         memory_mode = set_memory_mode;
+        return true;
     }
 
     /**
     *  \~japanese
     *  @brief レイヤー統合による高速化を無効化します。
+    * @return
+    *   成功した場合は true 、失敗した場合は false を返す。
     *  @details
     *    レイヤー統合による高速化を無効化します。デフォルトは有効です。
+    * @remarks
+    *   Open系API呼び出し後の呼び出しは無効です(falseを返却します)
     *
     *  \~english
     *  @brief   Disables speedup due to layer fusion.
+    * @return
+    *   Returns true on success, false on failure.
     *  @details
     *    Disables speedup due to layer fusion. Default is enabled.
+    * @remarks
+    *   This method will no effect (always retun false) after call OpenXXX Method.
     */
-    public void DisableLayerFusion()
+    public bool DisableLayerFusion()
     {
+        if (ailia != IntPtr.Zero)
+        {
+            Debug.Assert(false, "Ailia instance is already initialized.");
+            return false;
+        }
         disalbe_layer_fusion = true;
+        return true;
     }
 
     /****************************************************************

@@ -31,7 +31,7 @@ public class AiliaDetector
         /**
         * \~japanese
         * オブジェクトカテゴリ番号(0～category_count-1)
-        * 
+        *
         * \~english
         * Object category number (0 to category_count-1)
         */
@@ -39,7 +39,7 @@ public class AiliaDetector
         /**
         * \~japanese
         * 推定確率
-        * 
+        *
         * \~english
         * Estimated Probability
         */
@@ -47,7 +47,7 @@ public class AiliaDetector
         /**
         * \~japanese
         * 左上X位置(1で画像横幅)
-        * 
+        *
         * \~english
         * Top-left X position (image width at 1)
         */
@@ -55,7 +55,7 @@ public class AiliaDetector
         /**
         * \~japanese
         * 左上Y位置(1で画像高さ)
-        * 
+        *
         * \~english
         * Top-left Y position (image height at 1)
         */
@@ -63,7 +63,7 @@ public class AiliaDetector
         /**
         * \~japanese
         * 幅(1で画像横幅、負数は取らない)
-        * 
+        *
         * \~english
         * Width (1 for image width, negative numbers are not taken)
         */
@@ -71,7 +71,7 @@ public class AiliaDetector
         /**
         * \~japanese
         * 高さ(1で画像高さ、負数は取らない)
-        * 
+        *
         * \~english
         * Height (image height with 1, negative numbers are not taken)
         */
@@ -81,7 +81,7 @@ public class AiliaDetector
     /**
     * \~japanese
     * YOLOV1
-    * 
+    *
     * \~english
     * YOLOV1
     */
@@ -89,7 +89,7 @@ public class AiliaDetector
     /**
     * \~japanese
     * YOLOV2
-    * 
+    *
     * \~english
     * YOLOV2
     */
@@ -97,7 +97,7 @@ public class AiliaDetector
     /**
     * \~japanese
     * YOLOV3
-    * 
+    *
     * \~english
     * YOLOV3
     */
@@ -105,7 +105,7 @@ public class AiliaDetector
     /**
     * \~japanese
     * YOLOV4
-    * 
+    *
     * \~english
     * YOLOV4
     */
@@ -113,7 +113,7 @@ public class AiliaDetector
     /**
     * \~japanese
     * YOLOX
-    * 
+    *
     * \~english
     * YOLOX
     */
@@ -122,7 +122,7 @@ public class AiliaDetector
     /**
     * \~japanese
     * SSD
-    * 
+    *
     * \~english
     * SSD
     */
@@ -131,7 +131,7 @@ public class AiliaDetector
     /**
     * \~japanese
     * オプションなし
-    * 
+    *
     * \~english
     * No options
     */
@@ -154,7 +154,7 @@ public class AiliaDetector
     * @param flags          追加オプションフラグ(AILIA_DETECTOR_FLAG_*)
     * @return
     *   成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-    * 
+    *
     *  \~japanese
     * @brief   Create a detector object.
     * @param detector          Detector object pointer
@@ -175,7 +175,7 @@ public class AiliaDetector
     * \~japanese
     * @brief 検出オブジェクトを破棄します。
     * @param detector 検出オブジェクトポインタ
-    * 
+    *
     * \~english
     * @brief   Destroy the detector object.
     * @param detector   Detection object pointer
@@ -196,7 +196,7 @@ public class AiliaDetector
     * @param iou                         重複除外しきい値(0.45f等)(小さいほど重複を許容せず検出数減少)
     * @return
     *   成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-    * 
+    *
     * \~english
     * @brief   Perform object recognition.
     * @param detector     Detection object pointer
@@ -220,7 +220,7 @@ public class AiliaDetector
     * @param obj_count  オブジェクト数
     * @return
     *   成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-    * 
+    *
     * \~english
     * @brief   Get the number of recognition results.
     * @param detector    Detection object pointer
@@ -243,7 +243,7 @@ public class AiliaDetector
     * @details
     *   ailiaPredict() を一度も実行していない場合は \ref AILIA_STATUS_INVALID_STATE が返ります。
     *   認識結果は確率順でソートされます。
-    * 
+    *
     * \~english
     * @brief Get the recognition result.
     * @param detector Detection object pointer
@@ -271,7 +271,7 @@ public class AiliaDetector
     *   YoloV2などは既定の複数な形の検出ボックスを同時に試しています。このデータはそのボックスの複数な形の情報を記述します。
     *   anchorsには{x,y,x,y...}の形式で格納します。
     *   anchors_countが5の場合、anchorsは10次元の配列になります。
-    * 
+    *
     * \~english
     * @brief   Set anchors or biases information for YoloV2 etc.
     * @param detector        Detection object pointer
@@ -301,7 +301,7 @@ public class AiliaDetector
     *    ailiaCreateDetector() と  ailiaDetectorCompute() の間に実行する必要があります。
     *   この API を実行しない場合、デフォルトの 416x416 を利用します。
     *   YOLOv3 以外で実行した場合、 \ref AILIA_STATUS_INVALID_STATE  を返します。
-    * 
+    *
     * \~english
     * @brief   Specifies the input image size to the model in YoloV3.
     * @param detector       Detection object pointer

@@ -1230,7 +1230,6 @@ public class Ailia
     public const int AILIA_ENVIRONMENT_TYPE_CPU     = (0);
     public const int AILIA_ENVIRONMENT_TYPE_BLAS    = (1);
     public const int AILIA_ENVIRONMENT_TYPE_GPU     = (2);
-    public const int AILIA_ENVIRONMENT_TYPE_REMOTE  = (3);
 
     public const int AILIA_ENVIRONMENT_BACKEND_NONE          = (0);
     public const int AILIA_ENVIRONMENT_BACKEND_CUDA          = (2);

@@ -4,7 +4,7 @@
 * @brief AILIA Unity Plugin Native Interface
 * @copyright 2018-2021 AXELL Corporation
 * @date July 28, 2021
-* 
+*
 * \~english
 * @file
 * @brief AILIA Unity Plugin Native Interface
@@ -27,7 +27,7 @@ public class AiliaFeatureExtractor
     /**
     * \~japanese
     * L2ノルム
-    * 
+    *
     * \~english
     * L2-norm
     */
@@ -44,7 +44,7 @@ public class AiliaFeatureExtractor
     * @param layer_name 特徴に対応したレイヤーの名称 (VGG16の場合はfc1, nullで最終レイヤー)
     * @return
     *   成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-    * 
+    *
     * \~english
     * @brief   Create a feature extraction object.
     * @param fextractor   Feature extraction object pointer
@@ -63,7 +63,7 @@ public class AiliaFeatureExtractor
     * \~japanese
     * @brief 特徴抽出オブジェクトを破棄します。
     * @param fextractor 特徴抽出オブジェクトポインタ
-    * 
+    *
     * \~english
     * @brief   Destroy feature extractor object.
     * @param fextractor  Ffeature extractor object pointer
@@ -85,7 +85,7 @@ public class AiliaFeatureExtractor
     * @param src_format                  画像フォーマット (AILIA_IMAGE_FORMAT_*)
     * @return
     *   成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-    * 
+    *
     * \~english
     * @brief   Extract features.
     * @param fextractor   Feature extraction object pointer
@@ -114,7 +114,7 @@ public class AiliaFeatureExtractor
     * @param feature2_size               dstのサイズ(byte)
     * @return
     *   成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-    * 
+    *
     * \~english
     * @brief   Calculate the distance between features.
     * @param fextractor      Feature extraction object pointer

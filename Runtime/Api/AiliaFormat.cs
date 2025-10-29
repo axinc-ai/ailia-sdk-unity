@@ -4,7 +4,7 @@
 * @brief AILIA Unity Plugin Native Interface
 * @copyright 2018-2021 AXELL Corporation
 * @date July 28, 2021
-* 
+*
 * \~english
 * @file
 * @brief AILIA Unity Plugin Native Interface
@@ -27,7 +27,7 @@ public class AiliaFormat
     /**
     * \~japanese
     * RGBA順
-    * 
+    *
     * \~english
     * RGBA order
     */
@@ -35,7 +35,7 @@ public class AiliaFormat
     /**
     * \~japanese
     * BGRA順
-    * 
+    *
     * \~english
     * BGRA order
     */
@@ -44,7 +44,7 @@ public class AiliaFormat
     /**
     * \~japanese
     * RGBA順(Bottom to Top)
-    * 
+    *
     * \~english
     * RGBA order (Bottom to Top)
     */
@@ -52,7 +52,7 @@ public class AiliaFormat
     /**
     * \~japanese
     * BGRA順(Bottom to Top)
-    * 
+    *
     * \~english
     * BGRA order (Bottom to Top)
     */
@@ -65,7 +65,7 @@ public class AiliaFormat
     /**
     * \~japanese
     * BGR順
-    * 
+    *
     * \~english
     * BGR order
     */
@@ -73,7 +73,7 @@ public class AiliaFormat
     /**
     * \~japanese
     * RGB順
-    * 
+    *
     * \~english
     * RGB oreder
     */
@@ -81,7 +81,7 @@ public class AiliaFormat
     /**
     * \~japanese
     * Gray Scale (1ch)
-    * 
+    *
     * \~english
     * Gray Scale (1ch)
     */
@@ -89,7 +89,7 @@ public class AiliaFormat
     /**
     * \~japanese
     * ヒストグラム平坦化 Gray Scale (1ch)
-    * 
+    *
     * \~english
     * Histogram Flattening Gray Scale (1ch)
     */
@@ -98,7 +98,7 @@ public class AiliaFormat
     /**
     * \~japanese
     * DCYX順
-    * 
+    *
     * \~english
     * DYXC order
     */
@@ -106,7 +106,7 @@ public class AiliaFormat
     /**
     * \~japanese
     * DYXC順
-    * 
+    *
     * \~english
     * DYXC order
     */
@@ -115,7 +115,7 @@ public class AiliaFormat
     /**
     * \~japanese
     * 0 - 255
-    * 
+    *
     * \~english
     * 0 - 255
     */
@@ -123,7 +123,7 @@ public class AiliaFormat
     /**
     * \~japanese
     * -128 - 127
-    * 
+    *
     * \~english
     * -128 - 127
     */
@@ -131,7 +131,7 @@ public class AiliaFormat
     /**
     * \~japanese
     * 0.0 - 1.0
-    * 
+    *
     * \~english
     * 0.0 - 1.0
     */
@@ -139,7 +139,7 @@ public class AiliaFormat
     /**
     * \~japanese
     * -1.0 - 1.0
-    * 
+    *
     * \~english
     * -1.0 - 1.0
     */
@@ -147,7 +147,7 @@ public class AiliaFormat
     /**
     * \~japanese
     * ImageNet mean&std normalization
-    * 
+    *
     * \~english
     * ImageNet mean&std normalizatio
     */
@@ -172,7 +172,7 @@ public class AiliaFormat
     * @details
     *   画像フォーマットを変更します。dst_formatが \ref AILIA_NETWORK_IMAGE_FORMAT_BGR もしくはAILIA_NETWORK_IMAGE_FORMAT_RGB
     *   の場合、チャンネル数は3,  \ref AILIA_NETWORK_IMAGE_FORMAT_GRAY の場合チャンネル数は1となります。
-    * 
+    *
     * \~english
     * @brief   Convert image format.
     * @param dst           Where to store the converted image (type-numeric-stride * height * must be larger than the number of channels (see explanation))
