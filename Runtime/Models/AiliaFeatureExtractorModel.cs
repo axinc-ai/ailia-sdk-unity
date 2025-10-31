@@ -4,7 +4,7 @@
 * @brief AILIA Unity Plugin Feature Extractor Model Class
 * @author AXELL Corporation
 * @date  November 22, 2021
-* 
+*
 * \~english
 * @file
 * @brief AILIA Unity Plugin Feature Extractor Model Class
@@ -40,9 +40,11 @@ public class AiliaFeatureExtractorModel : AiliaModel{
     * @param set_layer_name      特徴に対応したレイヤーの名称 (VGG16の場合はfc1, NULLで最終レイヤー)
     * @return
     *   成功した場合 true を返す。
-    * @details        
+    * @details
     *   ネットワークの画像の前処理と、距離計算の設定を行います。
-    * 
+    * @remarks
+    *   Open系API呼び出し後の呼び出しは無効です(falseを返却します)
+    *
     * \~english
     * @brief   Model setting.
     * @param set_format          The network image format (AILIA_NETWORK_IMAGE_FORMAT_*)
@@ -54,8 +56,15 @@ public class AiliaFeatureExtractorModel : AiliaModel{
     *   Returns true on success.
     * @details
     *   Pre-process images of the network and set up distance calculations.
+    * @remarks
+    *   This method will no effect (always retun false) after call OpenXXX Method.
     */
     public bool Settings(uint set_format,uint set_channel,uint set_range,uint set_distance_type,string set_layer_name){
+        if (ailia_feature_extractor != IntPtr.Zero)
+        {
+            Debug.Assert(false, "Ailia Feature Extractor is already initialized.");
+            return false;
+        }
         format=set_format;
         channel=set_channel;
         range=set_range;
@@ -72,16 +81,16 @@ public class AiliaFeatureExtractorModel : AiliaModel{
     * @param model_path   protobuf/onnxファイルのパス名(MBSC or UTF16)
     * @return
     *   成功した場合はtrue、失敗した場合はfalseを返す。
-    * @details        
+    * @details
     *   モデルファイルからネットワークオブジェクトを作成します。
-    *   
+    *
     * \~english
     * @brief   Create a network object from a model file.
     * @param prototxt     Path name of the prototxt file (MBSC or UTF16)
     * @param model_path   Pathname of the protobuf/onnx file (MBSC or UTF16)
     * @return
     *   If this function is successful, it returns  true  , or  false  otherwise.
-    * @details        
+    * @details
     *   Create a network object from a model file.
     */
     public override bool OpenFile(string prototxt,string model_path){
@@ -105,9 +114,9 @@ public class AiliaFeatureExtractorModel : AiliaModel{
     * @param alg2       \ref AILIA_USER_API_FOPEN に通知される引数ポインタ
     * @return
     *   成功した場合はtrue、失敗した場合はfalseを返す。
-    * @details        
+    * @details
     *   ファイルコールバックからネットワークオブジェクトを作成します。
-    * 
+    *
     * \~english
     * @brief   Creates a network object from a file callback.
     * @param callback   User-defined file access callback function structure
@@ -115,7 +124,7 @@ public class AiliaFeatureExtractorModel : AiliaModel{
     * @param alg2       Argument pointer notified to \ref AILIA_USER_API_FOPEN
     * @return
     *   If this function is successful, it returns  true  , or  false  otherwise.
-    * @details        
+    * @details
     *   Creates a network object from a file callback.
     */
     public override bool OpenEx(Ailia.ailiaFileCallback callback,IntPtr arg1,IntPtr arg2){
@@ -134,20 +143,20 @@ public class AiliaFeatureExtractorModel : AiliaModel{
     /**
     * \~japanese
     * @brief メモリからネットワークオブジェクトを作成します。
-    * @param prototxt     prototxtファイルのデータへのポインタ 
+    * @param prototxt     prototxtファイルのデータへのポインタ
     * @param model_path   protobuf/onnxファイルのデータへのポインタ
     * @return
     *   成功した場合はtrue、失敗した場合はfalseを返す。
-    * @details        
+    * @details
     *   メモリからネットワークオブジェクトを作成します。
-    * 
+    *
     * \~english
     * @brief   Creates network objects from memory.
-    * @param prototxt     Pointer to data in prototxt file 
+    * @param prototxt     Pointer to data in prototxt file
     * @param model_path   Pointer to data in protobuf/onnx file
     * @return
     *   If this function is successful, it returns  true  , or  false  otherwise.
-    * @details        
+    * @details
     *   Creates network objects from memory.
     */
     public override bool OpenMem(byte[] prototxt_buf,byte[] model_buf){
@@ -184,8 +193,8 @@ public class AiliaFeatureExtractorModel : AiliaModel{
     * @return
     *   特徴ベクトル
     * @details
-    *   画像から特徴ベクトルを計算します。  
-    *   
+    *   画像から特徴ベクトルを計算します。
+    *
     * \~english
     * @brief   Acquire features from images.
     * @param image             Image to be extraction
@@ -194,7 +203,7 @@ public class AiliaFeatureExtractorModel : AiliaModel{
     * @return
     *   Feature vector
     * @details
-    *   Calculate feature vectors from images.  
+    *   Calculate feature vectors from images.
     */
     public float[] ComputeFromImage(Color32 [] image,int image_width,int image_height){
         return ComputeFromImageWithFormat(image,image_width,image_height,AiliaFormat.AILIA_IMAGE_FORMAT_RGBA);
@@ -210,7 +219,7 @@ public class AiliaFeatureExtractorModel : AiliaModel{
     * @return
     *   特徴ベクトル
     * @details
-    *   画像から特徴ベクトルを計算します。  
+    *   画像から特徴ベクトルを計算します。
     *
     * \~english
     * @brief   Obtain features from the upside-down image.
@@ -220,7 +229,7 @@ public class AiliaFeatureExtractorModel : AiliaModel{
     * @return
     *   Feature vector
     * @details
-    *   Calculate feature vectors from images.  
+    *   Calculate feature vectors from images.
     */
     public float[] ComputeFromImageB2T(Color32 [] image,int image_width,int image_height){
         return ComputeFromImageWithFormat(image,image_width,image_height,AiliaFormat.AILIA_IMAGE_FORMAT_RGBA_B2T);
@@ -232,22 +241,22 @@ public class AiliaFeatureExtractorModel : AiliaModel{
     * @param image             検出対象画像
     * @param image_width       画像幅
     * @param image_height      画像高さ
-    * @param foramt            画像形式 (AILIA_IMAGE_FORMAT_*)            
+    * @param foramt            画像形式 (AILIA_IMAGE_FORMAT_*)
     * @return
     *   特徴ベクトル
     * @details
-    *   画像から特徴ベクトルを計算します。  
-    * 
+    *   画像から特徴ベクトルを計算します。
+    *
     * \~english
     * @brief   Obtain feature values and distances between features from images.
     * @param image             Image to be extraction
     * @param image_width       Image width
     * @param image_height      Image height
-    * @param foramt            Image format (AILIA_IMAGE_FORMAT_*)            
+    * @param foramt            Image format (AILIA_IMAGE_FORMAT_*)
     * @return
     *   Feature vector
     * @details
-    *   Calculate feature vectors from images.  
+    *   Calculate feature vectors from images.
     */
     private float[] ComputeFromImageWithFormat(Color32 [] image,int image_width,int image_height,uint format){
         if(ailia_feature_extractor==IntPtr.Zero){
@@ -298,7 +307,7 @@ public class AiliaFeatureExtractorModel : AiliaModel{
     *   計算された距離
     * @details
     *   特徴量1と特徴量2の間の距離を計算します。
-    * 
+    *
     * \~english
     * @brief Calculates the distance between features.
     * @param feature1         Feature 1
@@ -343,14 +352,14 @@ public class AiliaFeatureExtractorModel : AiliaModel{
     * @brief 特徴抽出クオブジェクトを破棄します。
     * @return
     *   なし。
-    * @details        
+    * @details
     *   特徴抽出クオブジェクトを破棄します。
-    * 
+    *
     * \~english
     * @brief   Destroy feature extraction quobjects.
     * @return
     *   Return nothing.
-    * @details        
+    * @details
     *   Destroys the feature extractor object.
     */
     public override void Close(){
@@ -364,7 +373,7 @@ public class AiliaFeatureExtractorModel : AiliaModel{
     /**
     * \~japanese
     * @brief リソースを解放します。
-    *   
+    *
     *  \~english
     * @brief   Release resources.
     */

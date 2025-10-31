@@ -4,7 +4,7 @@
 * @brief AILIA Unity Plugin Detector Model Class
 * @author AXELL Corporation
 * @date  November 22, 2021
-* 
+*
 * \~english
 * @file
 * @brief AILIA Unity Plugin Detector Model Class
@@ -32,7 +32,7 @@ public class AiliaDetectorModel : AiliaModel {
     uint flag=AiliaDetector.AILIA_DETECTOR_FLAG_NORMAL;
 
     //モデルの設定を行う
-    /** 
+    /**
     * \~japanese
     * @brief モデルの設定を行います。
     * @param set_format      ネットワークの画像フォーマット
@@ -45,7 +45,8 @@ public class AiliaDetectorModel : AiliaModel {
     *   設定が完了すると true を返す。
     * @details
     *   モデルの設定を行います。
-    *   
+    * @remarks
+    *   Open系API呼び出し後の呼び出しは無効です(falseを返却します)
     * \~english
     * @brief   Set up the model.
     * @param set_format       Network image format
@@ -58,8 +59,15 @@ public class AiliaDetectorModel : AiliaModel {
     *   Returns true when configuration is complete.
     * @details
     *   Set up the model.
+    * @remarks
+    *   This method will no effect (always retun false) after call OpenXXX Method.
     */
     public bool Settings(uint set_format,uint set_channel,uint set_range,uint set_algorithm,uint set_category_n,uint set_flag){
+        if (ailia_detector != IntPtr.Zero)
+        {
+            Debug.Assert(false, "Ailia Detector instance is already initialized.");
+            return false;
+        }
         format=set_format;
         channel=set_channel;
         range=set_range;
@@ -70,7 +78,7 @@ public class AiliaDetectorModel : AiliaModel {
     }
 
     //YoloV2などのためにアンカーズ（anchors又はbiases）の情報を設定する
-    /** 
+    /**
     * \~japanese
     * @brief YoloV2などのためにアンカーズ（anchors又はbiases）の情報を設定します。
     * @param anchors   アンカーズの寸法 (検出ボックスの可能な形、高さと広さ)
@@ -80,7 +88,7 @@ public class AiliaDetectorModel : AiliaModel {
     *   AiliaDetector.ailiaDetectorSetAnchors()でYoloV2などのためにアンカーズ (anchors又はbiases) の情報を設定します。
     *   YoloV2などは既定の複数な形の検出ボックスを同時に試しています。このデータはそのボックスの複数な形の情報を記述します。
     *   anchorsには{x,y,x,y...}の形式で格納します。
-    *   
+    *
     * \~english
     * @brief   Set the anchors (anchors or biases) information for YoloV2 and others.
     * @param anchors   Dimensions of the anchors (possible shape, height and width of the detection box)
@@ -110,7 +118,7 @@ public class AiliaDetectorModel : AiliaModel {
     }
 
     //YoloV3の入力形状を設定する
-    /** 
+    /**
     * \~japanese
     * @brief YoloV3とYOLOXの入力形状を設定します。
     * @param x   モデルの入力画像幅
@@ -119,13 +127,13 @@ public class AiliaDetectorModel : AiliaModel {
     *   成功した場合は ture を、失敗した場合は false を返す。
     * @details
     *   AiliaDetector.ailiaDetectorSetInputShape()で YoloV3でのモデルへの入力画像サイズを指定します。
-    *   
+    *
     *   YoloV3とYOLOXでは単一のモデルが任意の入力解像度に対応します。(32 の倍数制限あり)
     *   計算量の削減等でモデルへの入力画像サイズを指定する場合この API を実行してください。
-    *   Open() と  Compute() の間に実行する必要があります。 
+    *   Open() と  Compute() の間に実行する必要があります。
     *   この API を実行しない場合、デフォルトの 416x416 を利用します。
     *   YOLOv3 以外で実行した場合、 \ref AILIA_STATUS_INVALID_STATE  を返します。
-    *   
+    *
     * \~english
     * @brief   Sets the input geometry for YoloV3 and YOLOX.
     * @param x   Model input image width
@@ -134,7 +142,7 @@ public class AiliaDetectorModel : AiliaModel {
     *   Return ture on success, false on failure.
     * @details
     *   AiliaDetector.ailiaDetectorSetInputShape() allows you to specify the input image size for the model in YoloV3 and YOLOX.
-    *   
+    *
     *   YoloV3 and YOLOX allows a single model to support any input resolution. (with a multiple limit of 32)
     *   Use this API when specifying the input image size to the model, for example, to reduce computational complexity.
     *   It must be executed between Open() and Compute().
@@ -148,7 +156,7 @@ public class AiliaDetectorModel : AiliaModel {
             }
             return false;
         }
-        int status=AiliaDetector.ailiaDetectorSetInputShape(ailia_detector,x,y); 
+        int status=AiliaDetector.ailiaDetectorSetInputShape(ailia_detector,x,y);
         if(status!=Ailia.AILIA_STATUS_SUCCESS){
             if(logging){
                 Debug.Log("ailiaDetectorSetInputShape failed "+status);
@@ -168,7 +176,7 @@ public class AiliaDetectorModel : AiliaModel {
     *   成功した場合はtrue、失敗した場合はfalseを返す。
     * @details
     *   モデルファイルからネットワークオブジェクトを作成します。
-    *   
+    *
     * \~english
     * @brief   Create a network object from a model file.
     * @param prototxt     Path name of the prototxt file (MBSC or UTF16)
@@ -191,7 +199,7 @@ public class AiliaDetectorModel : AiliaModel {
     }
 
     //コールバックから開く
-    /** 
+    /**
     * \~japanese
     * @brief ファイルコールバックからネットワークオブジェクトを作成します。
     * @param callback   ユーザ定義ファイルアクセスコールバック関数構造体
@@ -201,7 +209,7 @@ public class AiliaDetectorModel : AiliaModel {
     *    成功した場合はtrue、失敗した場合はfalseを返す。
     * @details
     *  　ファイルコールバックからネットワークオブジェクトを作成します。
-    *   
+    *
     * \~english
     * @brief  Creates a network object from a file callback.
     * @param callback   User-defined file access callback function structure
@@ -225,7 +233,7 @@ public class AiliaDetectorModel : AiliaModel {
     }
 
     //メモリから開く
-    /** 
+    /**
     * \~japanese
     * @brief メモリからネットワークオブジェクトを作成します。
     * @param prototxt_buf   prototxtファイルのデータへのポインタ
@@ -234,7 +242,7 @@ public class AiliaDetectorModel : AiliaModel {
     *   成功した場合はtrue、失敗した場合はfalseを返す。
     * @details
     *   メモリからネットワークオブジェクトを作成します。
-    *   
+    *
     * \~english
     * @brief   Creates network objects from memory.
     * @param prototxt_buf   Pointer to data in prototxt file
@@ -256,14 +264,14 @@ public class AiliaDetectorModel : AiliaModel {
         return OpenDetector();
     }
 
-    /** 
+    /**
     * \~japanese
     * @brief 検出オブジェクトを作成します。
     * @return
     *   成功した場合は true を、失敗した場合は false を返す。
     * @details
     *   検出オブジェクトを作成します。
-    *   
+    *
     * \~english
     * @brief   Create a detection object.
     * @return
@@ -284,7 +292,7 @@ public class AiliaDetectorModel : AiliaModel {
     }
 
     //画像から推論する
-    /** 
+    /**
     * \~japanese
     * @brief 画像から推論し結果を取得する
     * @param image        入力画像
@@ -296,7 +304,7 @@ public class AiliaDetectorModel : AiliaModel {
     *    検出されたオブジェクトのリスト。
     * @details
     *    与えられた画像から推論を行い、推論結果をリストで取得します。
-    *    
+    *
     * \~english
     * @brief   Detection from images and obtaining results
     * @param image        Input Image
@@ -314,7 +322,7 @@ public class AiliaDetectorModel : AiliaModel {
     }
 
     //画像から推論する（上下反転）
-    /** 
+    /**
     * \~japanese
     * @brief 上下反転された画像から推論し結果を取得する
     * @param image        入力画像
@@ -326,7 +334,7 @@ public class AiliaDetectorModel : AiliaModel {
     *   検出されたオブジェクトのリスト。
     * @details
     *   与えられた画像から推論を行い、推論結果をリストで取得します。
-    *    
+    *
     * \~english
     * @brief   Detection from bottom-top images and obtaining results
     * @param image        Input image
@@ -343,7 +351,7 @@ public class AiliaDetectorModel : AiliaModel {
         return ComputeFromImageWithFormat(image,tex_width,tex_height,threshold,iou,AiliaFormat.AILIA_IMAGE_FORMAT_RGBA_B2T);
     }
 
-    /** 
+    /**
     * \~japanese
     * @brief 画像から推論し結果を取得する
     * @param image        入力画像
@@ -356,7 +364,7 @@ public class AiliaDetectorModel : AiliaModel {
     *   検出されたオブジェクトのリスト。
     * @details
     *   与えられた画像から推論を行い、推論結果をリストで取得します。
-    *   
+    *
     * \~english
     * @brief   Detection from images and obtaining results
     * @param image        Input image
@@ -411,20 +419,20 @@ public class AiliaDetectorModel : AiliaModel {
     }
 
     //開放する
-    /** 
+    /**
     * \~japanese
     * @brief 検出オブジェクトを破棄します。
     * @return
     *   なし
     * @details
     *   検出オブジェクトを破棄します。
-    *   
+    *
     * \~english
     * @brief   Discard the detection object.
     * @return
     *   Return nothing
     * @details
-    *    Destroys the detection object. 
+    *    Destroys the detection object.
     */
     public override void Close(){
         if(ailia_detector!=IntPtr.Zero){
@@ -437,7 +445,7 @@ public class AiliaDetectorModel : AiliaModel {
     /**
     * \~japanese
     * @brief リソースを解放します。
-    *   
+    *
     *  \~english
     * @brief   Release resources.
     */

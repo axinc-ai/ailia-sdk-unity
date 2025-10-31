@@ -4,7 +4,7 @@
 * @brief AILIA Unity Plugin Native Interface
 * @copyright 2018-2021 AXELL Corporation
 * @date July 28, 2021
-* 
+*
 * \~english
 * @file
 * @brief AILIA Unity Plugin Native Interface
@@ -45,7 +45,7 @@ public class AiliaPoseEstimator
     /**
     * \~japanese
     *  姿勢検出
-    *  
+    *
     *  \~english
     *  Posture detection
     */
@@ -53,7 +53,7 @@ public class AiliaPoseEstimator
     /**
     * \~japanese
     *  顔特徴点検出
-    *  
+    *
     * \~english
     * Facial Feature Point Detection
     */
@@ -61,7 +61,7 @@ public class AiliaPoseEstimator
     /**
     * \~japanese
     *  上半身姿勢検出
-    *  
+    *
     * \~english
     *  Upper body posture detection
     */
@@ -69,7 +69,7 @@ public class AiliaPoseEstimator
     /**
     * \~japanese
     *  上半身姿勢検出
-    *  
+    *
     * \~english
     *  Upper body posture detection
     */
@@ -77,7 +77,7 @@ public class AiliaPoseEstimator
     /**
     * \~japanese
     *  手姿勢検出
-    *  
+    *
     * \~english
     *  Hand posture detection
     */
@@ -86,7 +86,7 @@ public class AiliaPoseEstimator
     /**
     * \~japanese
     *  姿勢検出
-    *  
+    *
     * \~english
     *  Posture detection
     */
@@ -94,7 +94,7 @@ public class AiliaPoseEstimator
     /**
     * \~japanese
     *  姿勢検出
-    *  
+    *
     * \~english
     *  Posture detection
     */
@@ -102,7 +102,7 @@ public class AiliaPoseEstimator
     /**
     * \~japanese
     *  姿勢検出
-    *  
+    *
     * \~english
     *  Posture detection
     */
@@ -150,7 +150,7 @@ public class AiliaPoseEstimator
     /**
     * \~japanese
     *  個数
-    *  
+    *
     * \~english
     *  Quantity
     */
@@ -158,7 +158,7 @@ public class AiliaPoseEstimator
     /**
     * \~japanese
     *  個数
-    *  
+    *
     * \~english
     *  Quantity
     */
@@ -166,7 +166,7 @@ public class AiliaPoseEstimator
     /**
     * \~japanese
     *  個数
-    *  
+    *
     * \~english
     *  Quantity
     */
@@ -174,7 +174,7 @@ public class AiliaPoseEstimator
     /**
     * \~japanese
     *  個数
-    *  
+    *
     * \~english
     *  Quantity
     */
@@ -185,7 +185,7 @@ public class AiliaPoseEstimator
         /**
         * \~japanese
         * 入力画像内 X座標  [0.0 , 1.0)
-        * 
+        *
         * \~english
         * X-coordinate in input image [0.0 , 1.0)
         */
@@ -193,7 +193,7 @@ public class AiliaPoseEstimator
         /**
         * \~japanese
         * 入力画像内 Y座標  [0.0 , 1.0)
-        * 
+        *
         * \~english
         * Y-coordinate in input image [0.0 , 1.0)
         */
@@ -201,7 +201,7 @@ public class AiliaPoseEstimator
         /**
         * \~japanese
         * 姿勢検出のみ有効。体中心を座標0とした時に推定されるローカルZ座標。単位(スケール)は x と同じです。
-        * 
+        *
         * \~english
         * Valid only for posture detection. Local Z coordinate estimated when body center is set as coordinate 0. Unit (scale) is the same as x.
         */
@@ -209,7 +209,7 @@ public class AiliaPoseEstimator
         /**
         * \~japanese
         * この点の検出信頼度。値0.0Fの場合、この点は未検出のため使用できません。
-        * 
+        *
         * \~english
         * Detection confidence for this point. A value of 0.0F means that this point has not been detected and cannot be used.
         */
@@ -217,7 +217,7 @@ public class AiliaPoseEstimator
         /**
         * \~japanese
         * 通常は値0です。この点が未検出で、他の点から補間可能な場合、x,yの値を補間し、interpolated=1となります。
-        * 
+        *
         * \~english
         * Normally the value is 0. If this point is undetected and can be interpolated from other points, the x,y values are interpolated and interpolated=1.
         */
@@ -227,7 +227,7 @@ public class AiliaPoseEstimator
     /**
     * \~japanese
     *  構造体フォーマットバージョン
-    *  
+    *
     *  \~english
     *  structure format version
     */
@@ -239,7 +239,7 @@ public class AiliaPoseEstimator
         /**
         * \~japanese
         * 検出した関節点。配列インデックスが関節番号に相当します。
-        * 
+        *
         * \~english
         * Detected joint points. The sequence index corresponds to the joint number.
         */
@@ -247,7 +247,7 @@ public class AiliaPoseEstimator
         /**
         * \~japanese
         * このオブジェクトの検出信頼度
-        * 
+        *
         * \~english
         * Detection confidence for this object
         */
@@ -255,7 +255,7 @@ public class AiliaPoseEstimator
         /**
         * \~japanese
         * points[]の中で正常に検出された関節点の個数
-        * 
+        *
         * \~english
         * Number of joint points successfully detected in points[].
         */
@@ -263,7 +263,7 @@ public class AiliaPoseEstimator
         /**
         * \~japanese
         * 時間方向に、このオブジェクトにユニークなIDです。1以上の正の値です。
-        * 
+        *
         * \~english
         * Unique ID for this object in the time direction. 1 or more positive values.
         */
@@ -272,7 +272,7 @@ public class AiliaPoseEstimator
         /**
         * \~japanese
         * このオブジェクトのオイラー角 yaw, pitch, roll [単位radian]。現在yawのみ対応しています。角度が検出されない場合FLT_MAXが格納されます。
-        * 
+        *
         * \~english
         * Euler angles yaw, pitch, roll [unit radian] for this object. Currently only yaw is supported. If no angle is detected, FLT_MAX is stored.
         */
@@ -282,7 +282,7 @@ public class AiliaPoseEstimator
     /**
     * \~japanese
     *  構造体フォーマットバージョン
-    *  
+    *
     *  \~english
     *  Structure-format version
     */
@@ -294,7 +294,7 @@ public class AiliaPoseEstimator
         /**
         * \~japanese
         * 検出した関節点。配列インデックスが関節番号に相当します。
-        * 
+        *
         * \~english
         * Detected joint points. The sequence index corresponds to the joint number.
         */
@@ -302,7 +302,7 @@ public class AiliaPoseEstimator
         /**
         * \~japanese
         * このオブジェクトの検出信頼度
-        * 
+        *
         * \~english
         * Detection confidence for this object
         */
@@ -324,7 +324,7 @@ public class AiliaPoseEstimator
         /**
         * \~japanese
         * 検出した関節点。配列インデックスが関節番号に相当します。
-        * 
+        *
         * \~english
         * Detected joint points. The sequence index corresponds to the joint number.
         */
@@ -332,7 +332,7 @@ public class AiliaPoseEstimator
         /**
         * \~japanese
         * このオブジェクトの検出信頼度
-        * 
+        *
         * \~english
         * Detection confidence for this object
         */
@@ -340,7 +340,7 @@ public class AiliaPoseEstimator
         /**
         * \~japanese
         * points[]の中で正常に検出された関節点の個数
-        * 
+        *
         * \~english
         * Number of joint points successfully detected in points[].
         */
@@ -348,7 +348,7 @@ public class AiliaPoseEstimator
         /**
         * \~japanese
         * 時間方向に、このオブジェクトにユニークなIDです。1以上の正の値です。
-        * 
+        *
         * \~english
         * Unique ID for this object in the time direction. 1 or more positive values.
         */
@@ -357,7 +357,7 @@ public class AiliaPoseEstimator
         /**
         * \~japanese
         * このオブジェクトのオイラー角 yaw, pitch, roll [単位radian]。現在yawのみ対応しています。角度が検出されない場合FLT_MAXが格納されます。
-        * 
+        *
         * \~english
         * Euler angles yaw, pitch, roll [unit radian] for this object. Currently only yaw is supported. If no angle is detected, FLT_MAX is stored.
         */
@@ -367,7 +367,7 @@ public class AiliaPoseEstimator
     /**
     * \~japanese
     *  構造体フォーマットバージョン
-    * 
+    *
     * \~english
     *  Structure-format version
     */
@@ -379,7 +379,7 @@ public class AiliaPoseEstimator
         /**
         * \~japanese
         * 検出した関節点。配列インデックスが関節番号に相当します。
-        * 
+        *
         * \~english
         * Detected joint points. The sequence index corresponds to the joint number.
         */
@@ -387,7 +387,7 @@ public class AiliaPoseEstimator
         /**
         * \~japanese
         * このオブジェクトの検出信頼度
-        * 
+        *
         * \~english
         * Detection confidence for this object
         */
@@ -408,7 +408,7 @@ public class AiliaPoseEstimator
     *   成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
     * @details
     *   caffemodelとprototxtを読み込んだAILIANetworkから検出オブジェクトを作成します。
-    * 
+    *
     * \~english
     * @brief   Create a detection object.
     * @param pose_estimator   Detection object pointer
@@ -426,7 +426,7 @@ public class AiliaPoseEstimator
     * \~japanese
     * @brief 検出オブジェクトを破棄します。
     * @param pose_estimator 検出オブジェクトポインタ
-    * 
+    *
     * \~english
     * @brief   Destroy the detection object.
     * @param pose_estimator   Detection object pointer
@@ -441,7 +441,7 @@ public class AiliaPoseEstimator
     * @param threshold                   検出閾値 0.0以上1.0以下の値で、値が小さいほど検出しやすくなります。
     * @return
     *   成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-    * 
+    *
     * \~english
     * @brief   Set the detection threshold.
     * @param pose_estimator   Detection object pointer
@@ -463,7 +463,7 @@ public class AiliaPoseEstimator
     * @param src_format                  画像形式 (AILIA_IMAGE_FORMAT_*)
     * @return
     *   成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-    * 
+    *
     * \~english
     * @brief   Skeletal and facial feature point detection.
     * @param pose_estimator   Detection object pointer
@@ -485,7 +485,7 @@ public class AiliaPoseEstimator
     * @param obj_count       オブジェクト数  顔特徴点の場合は1または0となります。
     * @return
     *   成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-    * 
+    *
     * \~english
     * @brief   Get the number of recognition results.
     * @param pose_estimator   Detection object pointer
@@ -505,7 +505,7 @@ public class AiliaPoseEstimator
     * @param version         AILIA_POSE_ESTIMATOR_OBJECT_POSE_VERSION
     * @return
     *   成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-    * 
+    *
     * \~english
     * @brief   Get the result of skeletal detection recognition.
     * @param pose_estimator   Detection object pointer
@@ -527,7 +527,7 @@ public class AiliaPoseEstimator
     * @param version         AILIA_POSE_ESTIMATOR_OBJECT_FACE_VERSION
     * @return
     *   成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-    * 
+    *
     * \~english
     * @brief Get the result of face feature point detection.
     * @param pose_estimator   Detection object pointer
@@ -549,7 +549,7 @@ public class AiliaPoseEstimator
     * @param version         AILIA_POSE_ESTIMATOR_OBJECT_UPPOSE_VERSION
     * @return
     *   成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-    * 
+    *
     * \~english
     * @brief   UpPose Get the recognition result.
     * @param pose_estimator   Detection object pointer
@@ -571,7 +571,7 @@ public class AiliaPoseEstimator
     * @param version         AILIA_POSE_ESTIMATOR_OBJECT_HAND_VERSION
     * @return
     *   成功した場合は \ref AILIA_STATUS_SUCCESS 、そうでなければエラーコードを返す。
-    * 
+    *
     * \~english
     * @brief   Hand Get the recognition result.
     * @param pose_estimator   Detection object pointer

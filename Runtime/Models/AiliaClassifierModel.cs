@@ -4,7 +4,7 @@
 * @brief AILIA Unity Plugin Classifier Model Class
 * @author AXELL Corporation
 * @date  November 22, 2021
-* 
+*
 * \~english
 * @file
 * @brief AILIA Unity Plugin Classifier Model Class
@@ -37,8 +37,8 @@ public class AiliaClassifierModel : AiliaModel{
     * @param set_range     ネットワークの画像レンジ （AILIA_NETWORK_IMAGE_RANGE_*）
     * @return
     *   成功した場合 true を返す。
-    * @details
-    *   必要な画像の前処理の設定を行います。
+    * @remarks
+    *   Open系API呼び出し後の呼び出しは無効です(falseを返却します)
     * \~english
     * @brief Model setting.
     * @param set_format    The network image format (AILIA_NETWORK_IMAGE_FORMAT_*)
@@ -46,10 +46,15 @@ public class AiliaClassifierModel : AiliaModel{
     * @param set_range     The network image range (AILIA_NETWORK_IMAGE_RANGE_*)
     * @return
     *   If this funcyion is successful, it returns true.
-    * @details        
-    *   Configure the necessary image preprocessing settings.
+    * @remarks
+    *   This method will no effect (always retun false) after call OpenXXX Method.
     */
     public bool Settings(uint set_format,uint set_channel,uint set_range){
+        if (ailia_classifier != IntPtr.Zero)
+        {
+            Debug.Assert(false, "Ailia Classifier instance is already initialized.");
+            return false;
+        }
         format=set_format;
         channel=set_channel;
         range=set_range;
@@ -65,16 +70,16 @@ public class AiliaClassifierModel : AiliaModel{
     * @param model_path   protobuf/onnxファイルのパス名(MBSC or UTF16)
     * @return
     *   成功した場合はtrue、失敗した場合はfalseを返す。
-    * @details        
+    * @details
     *   モデルファイルからネットワークオブジェクトを作成します。
-    * 
+    *
     * * \~english
     * @brief   Create a network object from a model file.
     * @param prototxt     Path name of the prototxt file (MBSC or UTF16)
     * @param model_path   Pathname of the protobuf/onnx file (MBSC or UTF16)
     * @return
     *   If this function is successful, it returns  true  , or  false  otherwise.
-    * @details        
+    * @details
     *   Create a network object from a model file.
     */
     public override bool OpenFile(string prototxt,string model_path){
@@ -101,7 +106,7 @@ public class AiliaClassifierModel : AiliaModel{
     *    成功した場合はtrue、失敗した場合はfalseを返す。
     * @details
     *  　ファイルコールバックからネットワークオブジェクトを作成します。
-    * 
+    *
     * \~english
     * @brief  Creates a network object from a file callback.
     * @param callback   User-defined file access callback function structure
@@ -129,16 +134,16 @@ public class AiliaClassifierModel : AiliaModel{
     /**
     * \~japanese
     * @brief メモリからネットワークオブジェクトを作成します。
-    * @param prototxt     prototxtファイルのデータへのポインタ 
+    * @param prototxt     prototxtファイルのデータへのポインタ
     * @param model_path   protobuf/onnxファイルのデータへのポインタ
     * @return
     *   成功した場合はtrue、失敗した場合はfalseを返す。
-    * @details        
+    * @details
     *   メモリからネットワークオブジェクトを作成します。
-    * 
+    *
     * \~english
     * @brief   Creates network objects from memory.
-    * @param prototxt     Pointer to data in prototxt file 
+    * @param prototxt     Pointer to data in prototxt file
     * @param model_path   Pointer to data in protobuf/onnx file
     * @return
     *   If this function is successful, it returns  true  , or  false  otherwise.
@@ -162,14 +167,14 @@ public class AiliaClassifierModel : AiliaModel{
     * @brief 識別オブジェクトを作成します。
     * @return
     *   成功した場合は true を、失敗した場合は false を返します。
-    * @details        
+    * @details
     *   AiliaClassifier.ailiaCreateClassifier() で識別オブジェクトを作成します。
-    *   
+    *
     * \~english
     * @brief   Create an classification object.
     * @return
     *   Returns true on success, false on failure.
-    * @details        
+    * @details
     *   Create an classification object with AiliaClassifier.ailiaCreateClassifier().
     */
     private bool OpenClassifier(){
@@ -234,7 +239,7 @@ public class AiliaClassifierModel : AiliaModel{
     * @param max_class_count   Maximum number of classification results
     * @return
     *   List of objects resulting from the classification.
-    * @details        
+    * @details
     *   Performs object classification from an image and returns a list.
     */
     public List<AiliaClassifier.AILIAClassifierClass> ComputeFromImageB2T(Color32 [] image,int image_width,int image_height,uint max_class_count){
@@ -252,9 +257,9 @@ public class AiliaClassifierModel : AiliaModel{
     * @param format            画像形式
     * @return
     *   識別結果のオブジェクトのリスト。
-    * @details        
+    * @details
     *   画像から物体識別を行いリストを返します。
-    * 
+    *
     * \~english
     * @brief   OPerforms object classification from images.
     * @param image             Image to be classify
@@ -264,7 +269,7 @@ public class AiliaClassifierModel : AiliaModel{
     * @param format            Image format
     * @return
     *   List of objects resulting from the classification.
-    * @details        
+    * @details
     *   Performs object classification from an image and returns a list.
     */
     private List<AiliaClassifier.AILIAClassifierClass> ComputeFromImageWithFormat(Color32 [] image,int image_width,int image_height,uint max_class_count,uint format){
@@ -312,14 +317,14 @@ public class AiliaClassifierModel : AiliaModel{
     * @brief 識別オブジェクトを破棄します。
     * @return
     *   なし。
-    * @details        
+    * @details
     *   識別オブジェクトを破棄します。
-    * 
+    *
     * \~english
     * @brief   Destroy the classification object.
     * @return
     *   Return nothing.
-    * @details        
+    * @details
     *   Destroys the classification object.
     */
     public override void Close(){
@@ -333,7 +338,7 @@ public class AiliaClassifierModel : AiliaModel{
     /**
     * \~japanese
     * @brief リソースを解放します。
-    *   
+    *
     *  \~english
     * @brief   Release resources.
     */
